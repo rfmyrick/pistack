@@ -222,7 +222,7 @@ def set_storage_load_led():
 def set_manage_state_led():
     lp = 5
     try:
-        contents = open('./manage', 'r').read()
+        contents = open('./manage.state', 'r').read()
     except:
         contents = "error"
     if contents.strip() == "managed":
@@ -250,7 +250,7 @@ def set_manage_state_led():
 def set_role_state_led():
     lp = 6
     try:
-        contents = open('./role', 'r').read()
+        contents = open('./role.state', 'r').read()
     except:
         contents = "error"
     if contents.strip() == "web":
@@ -286,7 +286,7 @@ def set_role_state_led():
 def set_environment_state_led():
     lp = 7
     try:
-        contents = open('./environment', 'r').read()
+        contents = open('./environment.state', 'r').read()
     except:
         contents = "error"
     if contents.strip() == "gateway":
