@@ -74,14 +74,18 @@ while getopts :s:ch FLAG; do
         :)
             echo "Invalid option: ${BOLD}$OPTARG${NORM} requires an argument. No changes made." 1>&2
             echo "Use ${BOLD}$SCRIPT -h${NORM} for help." 1>&2
+            exit 1
         ;;
         \?) # unrecognized option
-            echo "Option -${BOLD}$OPTARG${NORM} not allowed." 1>&2
+            echo "Option -${BOLD}$OPTARG${NORM} not allowed. No changes made." 1>&2
             echo "Use ${BOLD}$SCRIPT -h${NORM} for help." 1>&2
             exit 1
             ;;
     esac
 done
+echo "Missing argument. No changes made." 1>&2
+echo "Use ${BOLD}$SCRIPT -h${NORM} for help." 1>&2
+exit 1
 
 shift $((OPTIND-1))  #This tells getopts to move on to the next argument.
 
