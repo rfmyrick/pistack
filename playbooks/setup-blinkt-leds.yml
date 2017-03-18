@@ -1,0 +1,39 @@
+---
+- hosts: all
+  remote_user: pi
+  tasks:
+  - name: update the repository cache and install the latest python blinkt module
+    become: yes
+    apt:
+      name: python-blinkt
+      state: latest
+      update_cache: yes
+
+  - name: get the latest pistack from github
+    git:
+      repo: https://github.com/rfmyrick/pistack.git
+      dest: ~/pistack
+      force: yes
+
+  - name: register the led monitor to run at reboot via cron (pi user)
+    cron:
+      name: "run ledmonitor at reboot"
+      special_time: reboot
+      user: pi
+      job: "cd ~/pistack/ledmonitor; sudo python ./monitor.py"
+      backup: yes
+
+  - name: reboot node
+    delegate_to: localhost
+    shell: ssh -S "none" {{ inventory_hostname }} sudo reboot
+    failed_when: false
+    changed_when: true
+
+  - name: wait for tne node to complete rebooting
+    local_action:
+      wait_for host={{ ansible_ssh_host | default(inventory_hostname) }}
+      state=started port=22 delay=30
+      timeout=300 connect_timeout=15
+
+  - name: set the manage state to unmanaged
+    shell: "cd ~/pistack/ledmonitor; ./ledmon_setmanage.sh -s unmanaged"
