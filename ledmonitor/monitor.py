@@ -37,7 +37,7 @@
 ##      All other strings will be considered in error and cause the LED to be set to red
 ##
 ## RGB Color Values (r, g, b)
-## White    32, 32, 32      - causes blinkt to blink (255, 255, 255 is white with no blinking)
+## White    32, 32, 32
 ## Red      255, 0, 0
 ## Orange   255, 128, 0     - on blinkt, not easily distinguishable fro green
 ## Yellow   255, 255, 0     - on blinkt, not easily distinguishable fro green
@@ -85,19 +85,19 @@ def set_temperature_led():
     if t < (85*.5):
         if verbose:
             state = "Low (Green)"
-        set_pixel(lp, 0, 255, 0)
+        set_pixel(lp, 0, 128, 0)
     if t > (85*.5) and t < (85*.7):
         if verbose:
             state = "Nominal (Yellow)"
-        set_pixel(lp, 255, 255, 0)
+        set_pixel(lp, 128, 128, 0)
     if t > (85*.7) and t < (85*.9):
         if verbose:
             state = "Concern (Orange)"
-        set_pixel(lp, 255, 128, 0)
+        set_pixel(lp, 128, 128, 0)
     if t > (85*.9):
         if verbose:
             state = "Trouble (Red)"
-        set_pixel(lp, 255, 0, 0)
+        set_pixel(lp, 128, 0, 0)
     if verbose:
         print "CPU Temperature: ", t, "-", state
     return
@@ -113,19 +113,19 @@ def set_cpu_load_led():
     if cpu_load < (100*.2):
         if verbose:
             state = "Low (Green)"
-        set_pixel(lp, 0, 255, 0)
+        set_pixel(lp, 0, 128, 0)
     if cpu_load > (100*.2) and cpu_load < (100*.7):
         if verbose:
             state = "Nominal (Yellow)"
-        set_pixel(lp, 255, 255, 0)
+        set_pixel(lp, 128, 128, 0)
     if cpu_load > (100*.7) and cpu_load < (100*.9):
         if verbose:
             state = "Concern (Orange)"
-        set_pixel(lp, 255, 128, 0)
+        set_pixel(lp, 128, 128, 0)
     if cpu_load > (100*.9):
         if verbose:
             state = "Trouble (Red)"
-        set_pixel(lp, 255, 0, 0)
+        set_pixel(lp, 128, 0, 0)
     if verbose:
         print "CPU Load: ", cpu_load, "-", state
     return
@@ -141,19 +141,19 @@ def set_swap_load_led():
     if swap_load < (100*.1):
         if verbose:
             state = "Low (Green)"
-        set_pixel(lp, 0, 255, 0)
+        set_pixel(lp, 0, 128, 0)
     if swap_load > (100*.1) and swap_load < (100*.5):
         if verbose:
             state = "Nominal (Yellow)"
-        set_pixel(lp, 255, 255, 0)
+        set_pixel(lp, 128, 128, 0)
     if swap_load > (100*.5) and swap_load < (100*.9):
         if verbose:
             state = "Concern (Orange)"
-        set_pixel(lp, 255, 128, 0)
+        set_pixel(lp, 128, 128, 0)
     if swap_load > (100*.9):
         if verbose:
             state = "Trouble (Red)"
-        set_pixel(lp, 255, 0, 0)
+        set_pixel(lp, 128, 0, 0)
     if verbose:
         print "SWAP Load: ", swap_load, "-", state
     return
@@ -169,19 +169,19 @@ def set_memory_load_led():
     if memory_load < (100*.1):
         if verbose:
             state = "Low (Green)"
-        set_pixel(lp, 0, 255, 0)
+        set_pixel(lp, 0, 128, 0)
     if memory_load > (100*.1) and memory_load < (100*.5):
         if verbose:
             state = "Nominal (Yellow)"
-        set_pixel(lp, 255, 255, 0)
+        set_pixel(lp, 128, 128, 0)
     if memory_load > (100*.5) and memory_load < (100*.9):
         if verbose:
             state = "Concern (Orange)"
-        set_pixel(lp, 255, 128, 0)
+        set_pixel(lp, 128, 128, 0)
     if memory_load > (100*.9):
         if verbose:
             state = "Trouble (Red)"
-        set_pixel(lp, 255, 0, 0)
+        set_pixel(lp, 128, 0, 0)
     if verbose:
         print "Memory Load: ", memory_load, "-", state
     return
@@ -197,19 +197,19 @@ def set_storage_load_led():
     if storage_load < (100*.2):
         if verbose:
             state = "Low (Green)"
-        set_pixel(lp, 0, 255, 0)
+        set_pixel(lp, 0, 128, 0)
     if storage_load > (100*.2) and storage_load < (100*.7):
         if verbose:
             state = "Nominal (Yellow)"
-        set_pixel(lp, 255, 255, 0)
+        set_pixel(lp, 128, 128, 0)
     if storage_load > (100*.7) and storage_load < (100*.9):
         if verbose:
             state = "Concern (Orange)"
-        set_pixel(lp, 255, 128, 0)
+        set_pixel(lp, 128, 128, 0)
     if storage_load > (100*.9):
         if verbose:
             state = "Trouble (Red)"
-        set_pixel(lp, 255, 0, 0)
+        set_pixel(lp, 128, 0, 0)
     if verbose:
         print "Storage Load: ", storage_load, "-", state
     return
@@ -235,7 +235,7 @@ def set_manage_state_led():
             state = "Unmanaged (Black)"
     else:
         state = "Error (Red)"
-        set_pixel(lp, 255, 0, 0)
+        set_pixel(lp, 128, 0, 0)
     if verbose:
         print "Managed state: ", state
     return
@@ -254,24 +254,24 @@ def set_role_state_led():
     except:
         contents = "error"
     if contents.strip() == "web":
-        set_pixel(lp, 0, 255, 0)
+        set_pixel(lp, 0, 128, 0)
         if verbose:
             state = "Web (Green)"
     elif contents.strip() == "application":
-        set_pixel(lp, 0, 0, 255)
+        set_pixel(lp, 0, 0, 128)
         if verbose:
             state = "application (Blue)"
     elif contents.strip() == "server":
-        set_pixel(lp, 255, 255, 255)
+        set_pixel(lp, 128, 128, 128)
         if verbose:
             state = "server (White)"
     elif contents.strip() == "database":
-        set_pixel(lp, 127, 0, 255)
+        set_pixel(lp, 127, 0, 128)
         if verbose:
             state = "database (Purple)"
     else:
         state = "Error (Red)"
-        set_pixel(lp, 255, 0, 0)
+        set_pixel(lp, 128, 0, 0)
     if verbose:
         print "Role state: ", state
     return
@@ -290,24 +290,24 @@ def set_environment_state_led():
     except:
         contents = "error"
     if contents.strip() == "gateway":
-        set_pixel(lp, 0, 0, 255)
+        set_pixel(lp, 0, 0, 128)
         if verbose:
             state = "Gateway (Blue)"
     elif contents.strip() == "development":
-        set_pixel(lp, 0, 255, 0)
+        set_pixel(lp, 0, 128, 0)
         if verbose:
             state = "Development (Green)"
     elif contents.strip() == "test":
-        set_pixel(lp, 255, 255, 255)
+        set_pixel(lp, 128, 128, 128)
         if verbose:
             state = "Test (White)"
     elif contents.strip() == "production":
-        set_pixel(lp, 128, 0, 255)
+        set_pixel(lp, 128, 0, 128)
         if verbose:
             state = "Production (Purple)"
     else:
         state = "Error (Red)"
-        set_pixel(lp, 255, 0, 0)
+        set_pixel(lp, 128, 0, 0)
     if verbose:
         print "Environment state: ", state
     return
