@@ -18,15 +18,15 @@
 ##      Values include: gateway, development, test, production
 ##          gateway     - blue
 ##          development - green
-##          test        - yellow
+##          test        - white
 ##          production  - purple
 ##      All other strings will be considered in error and cause the LED to be set to red
 ##
 ## Role state is read from a file in the ledmonitor directory called role
 ##      Values include: web, application, server, database
-##          web         - blue
-##          application - green
-##          server      - yellow
+##          web         - green
+##          application - bliue
+##          server      - white
 ##          database    - purple
 ##      All other strings will be considered in error and cause the LED to be set to red
 ##
@@ -34,17 +34,17 @@
 ##      Values include: managed, unmanaged
 ##          managed     - white
 ##          unmanaged   - black (off)
-##      All other strings will be considered in error and cause the LED to be set to black (off)
+##      All other strings will be considered in error and cause the LED to be set to red
 ##
 ## RGB Color Values (r, g, b)
-## White    255, 255, 255
+## White    32, 32, 32      - causes blinkt to blink (255, 255, 255 is white with no blinking)
 ## Red      255, 0, 0
-## Orange   255, 128, 0
-## Yellow   255, 255, 0
+## Orange   255, 128, 0     - on blinkt, not easily distinguishable fro green
+## Yellow   255, 255, 0     - on blinkt, not easily distinguishable fro green
 ## Green    0, 255, 0
 ## Blue     0, 0, 255
-## Purple   127, 0, 255
-## Pink     255, 0, 255
+## Purple   128, 0, 255
+## Pink     255, 0, 255     - on blinkt, not easily distinguishable fro purple
 ## Black    0, 0, 0
 ##      Useful color value information: http://www.rapidtables.com/web/color/RGB_Color.htm
 
@@ -215,7 +215,7 @@ def set_storage_load_led():
     return
 
 ## Function to set the MANAGE state LED - position 5
-##      managed (white)
+##      managed (white/blink)
 ##      unmanaged (black - off)
 ##
 ##      Any other values or a missing file are an error and will be shown as red
@@ -226,7 +226,7 @@ def set_manage_state_led():
     except:
         contents = "error"
     if contents.strip() == "managed":
-        set_pixel(lp, 255, 255, 255)
+        set_pixel(lp, 32, 32, 32)
         if verbose:
             state = "Managed (White)"
     elif contents.strip() == "unmanaged":
@@ -241,9 +241,9 @@ def set_manage_state_led():
     return
 
 ## Function to set the ROLE state LED - position 6
-##          web         (blue)
-##          application (green)
-##          server      (yellow)
+##          web         (green)
+##          application (blue)
+##          server      (white)
 ##          database    (purple)
 ##
 ##      Any other values or a missing file are an error and will be shown as red
@@ -254,17 +254,17 @@ def set_role_state_led():
     except:
         contents = "error"
     if contents.strip() == "web":
-        set_pixel(lp, 0, 0, 255)
-        if verbose:
-            state = "Web (Blue)"
-    elif contents.strip() == "application":
         set_pixel(lp, 0, 255, 0)
         if verbose:
-            state = "application (Green)"
-    elif contents.strip() == "server":
-        set_pixel(lp, 255, 255, 0)
+            state = "Web (Green)"
+    elif contents.strip() == "application":
+        set_pixel(lp, 0, 0, 255)
         if verbose:
-            state = "server (Yellow)"
+            state = "application (Blue)"
+    elif contents.strip() == "server":
+        set_pixel(lp, 255, 255, 255)
+        if verbose:
+            state = "server (White)"
     elif contents.strip() == "database":
         set_pixel(lp, 127, 0, 255)
         if verbose:
@@ -279,7 +279,7 @@ def set_role_state_led():
 ## Function to set the ENVIRONMENT state LED - position 7
 ##          gateway     (blue)
 ##          development (green)
-##          test        (yellow)
+##          test        (white)
 ##          production  (purple)
 ##
 ##      Any other values or a missing file are an error and will be shown as red
@@ -298,11 +298,11 @@ def set_environment_state_led():
         if verbose:
             state = "Development (Green)"
     elif contents.strip() == "test":
-        set_pixel(lp, 255, 255, 0)
+        set_pixel(lp, 255, 255, 255)
         if verbose:
-            state = "Test (Yellow)"
+            state = "Test (White)"
     elif contents.strip() == "production":
-        set_pixel(lp, 127, 0, 255)
+        set_pixel(lp, 128, 0, 255)
         if verbose:
             state = "Production (Purple)"
     else:
